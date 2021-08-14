@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Copyright 2017-2020 (c) by TermuxArch, all rights reserved, see LICENSE 🌎 🌍 🌏 🌐 🗺
-# https://termuxarch.github.io/TermuxArch courtesy host https://pages.github.com
-# update git repository, then update modules
+## Copyright 2017-2021 (c) by TermuxArch, all rights reserved, see LICENSE 🌎 🌍 🌏 🌐 🗺
+## https://termuxarch.github.io/TermuxArch courtesy host https://pages.github.com
+## update git repository, then update modules
 ################################################################################
 set -Eeuo pipefail
 
@@ -50,13 +50,13 @@ cd $WRDR
 if [[ -f sha512.sum ]]
 then
 _PRT_ "Checking checksums in direcory $(pwd) with sha512sum: "
-sha512sum -c --quiet sha512.sum 2>/dev/null || echo FAILED # sha512sum -c sha512.sum
+sha512sum -c --quiet sha512.sum 2>/dev/null || printf "%s\\n" "sha512sum -c sha512.sum FAILED!"
 _PRNT_  "DONE"
 else
-printf "%s\\n" "No file 'sha512.sum' found in directory $(pwd)."
+printf "%s\\n" "No 'sha512.sum' file found in directory $(pwd)."
 fi
 cd $RDR
-#	sleep 0."$(shuf -i 24-72 -n 1)" # latency support
+sleep 0."$(shuf -i 24-72 -n 1)" # latency support
 }
 
 _PRT_ () {	# print message with no trialing newline
@@ -71,7 +71,7 @@ git pull || printf "\\n\\n%s\\n" "Cannot git pull : Continuing..."
 sha512sum -c --quiet sha512.sum || _PRNT_ "WARNING:  Checking checksums in direcory $(pwd) with sha512sum FAILED! "
 SIAD="$(grep url .git/config|cut -d"=" -f 2|head -n 1|cut -d"/" -f 2-3)"
 OUNA="/shlibs"
-_GSA_ "\.scripts/maintenance" maintenance "" || printf "\\n\\n%s\\n" "Cannot add or update module .scripts/maintenance : Continuing..."
+_GSA_ ".scripts/maintenance" maintenance "" || printf "\\n\\n%s\\n" "Cannot add or update module .scripts/maintenance : Continuing..."
 OUNA="/TermuxArch"
 _GSA_ docs docsTermuxArch "" || printf "\\n\\n%s\\n" "Cannot add or update module docs : Continuing..."
 _GSA_ gen genTermuxArch "" || printf "\\n\\n%s\\n" "Cannot add or update module gen : Continuing..."

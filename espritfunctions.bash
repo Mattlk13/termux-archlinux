@@ -1,19 +1,40 @@
 #!/usr/bin/env bash
-# Copyright 2017-2020 by SDRausty. All rights reserved.  🌎 🌍 🌏 🌐 🗺
-# Hosted sdrausty.github.io/TermuxArch courtesy https://pages.github.com
-# https://sdrausty.github.io/TermuxArch/README has info about this project.
-# https://sdrausty.github.io/TermuxArch/CONTRIBUTORS Thank you for your help.
+## Copyright 2017-2021 by SDRausty. All rights reserved.  🌎 🌍 🌏 🌐 🗺
+## Hosted sdrausty.github.io/TermuxArch courtesy https://pages.github.com
+## https://sdrausty.github.io/TermuxArch/README has info about this project.
+## https://sdrausty.github.io/TermuxArch/CONTRIBUTORS Thank you for your help.
 ################################################################################
+_ISOCOUNTRYCODES_() {
+declare -A ISOCOUNTRYCODES
+ISOCOUNTRYCODES=([af]="Afghanistan" [ax]="Åland Islands" [al]="Albania" [dz]="Algeria" [as]="American Samoa" [ad]="Andorra" [ao]="Angola" [ai]="Anguilla" [aq]="Antarctica" [ag]="Antigua and Barbuda" [ar]="Argentina" [am]="Armenia" [aw]="Aruba" [au]="Australia" [at]="Austria" [az]="Azerbaijan" [bs]="The Bahamas" [bh]="Bahrain" [bd]="Bangladesh" [bb]="Barbados" [by]="Belarus" [be]="Belgium" [bz]="Belize" [bj]="Benin" [bm]="Bermuda" [bt]="Bhutan" [bo]="Bolivia" [bq]="Bonaire, Sint Eustatius and Saba" [ba]="Bosnia and Herzegovina" [bw]="Botswana" [bv]="Bouvet Island" [br]="Brazil" [io]="The British Indian Ocean Territory" [bn]="Brunei Darussalam" [bg]="Bulgaria" [bf]="Burkina Faso" [bi]="Burundi" [cv]="Cabo Verde" [kh]="Cambodia" [cm]="Cameroon" [ca]="Canada" [ky]="The Cayman Islands" [cf]="The Central African Republic" [td]="Chad" [cl]="Chile" [cn]="China" [cx]="Christmas Island" [cc]="The Cocos (Keeling) Islands" [co]="Colombia" [km]="The Comoros" [cd]="The Democratic Republic of the Congo" [cg]="The Congo" [ck]="The Cook Islands" [cr]="Costa Rica" [ci]="C&ocirc;te d'Ivoire" [hr]="Croatia" [cu]="Cuba" [cw]="Cura&ccedil;ao" [cy]="Cyprus" [cz]="Czechia" [dk]="Denmark" [dj]="Djibouti" [dm]="Dominica" [do]="The Dominican Republic" [ec]="Ecuador" [eg]="Egypt" [sv]="El Salvador" [gq]="Equatorial Guinea" [er]="Eritrea" [ee]="Estonia" [sz]="Eswatini" [et]="Ethiopia" [fk]="The  Falkland Islands [Malvinas]" [fo]="The Faroe Islands" [fj]="Fiji" [fi]="Finland" [fr]="France" [gf]="French Guiana" [pf]="French Polynesia" [tf]="The French Southern Territories" [ga]="Gabon" [gm]="The Gambia" [ge]="Georgia" [de]="Germany" [gh]="Ghana" [gi]="Gibraltar" [gr]="Greece" [gl]="Greenland" [gd]="Grenada" [gp]="Guadeloupe" [gu]="Guam" [gt]="Guatemala" [gg]="Guernsey" [gn]="Guinea" [gw]="Guinea-Bissau" [gy]="Guyana" [ht]="Haiti" [hm]="Heard Island and McDonald Islands" [va]="The Holy See" [hn]="Honduras" [hk]="Hong Kong" [hu]="Hungary" [is]="Iceland" [in]="India" [id]="Indonesia" [ir]="Iran (Islamic Republic of)" [iq]="Iraq" [ie]="Ireland" [im]="Isle of Man" [il]="Israel" [it]="Italy" [jm]="Jamaica" [jp]="Japan" [je]="Jersey" [jo]="Jordan" [kz]="Kazakhstan" [ke]="Kenya" [ki]="Kiribati" [kp]="The Democratic People's Republic of Korea" [kr]="The Republic of Korea" [kw]="Kuwait" [kg]="Kyrgyzstan" [la]="The Lao People's Democratic Republic" [lv]="Latvia" [lb]="Lebanon" [ls]="Lesotho" [lr]="Liberia" [ly]="Libya" [li]="Liechtenstein" [lt]="Lithuania" [lu]="Luxembourg" [mo]="Macao" [mk]="Republic of North Macedonia" [mg]="Madagascar" [mw]="Malawi" [my]="Malaysia" [mv]="Maldives" [ml]="Mali" [mt]="Malta" [mh]="The Marshall Islands" [mq]="Martinique" [mr]="Mauritania" [mu]="Mauritius" [yt]="Mayotte" [mx]="Mexico" [fm]="Micronesia (Federated States of)" [md]="The Republic of Moldova" [mc]="Monaco" [mn]="Mongolia" [me]="Montenegro" [ms]="Montserrat" [ma]="Morocco" [mz]="Mozambique" [mm]="Myanmar" [na]="Namibia" [nr]="Nauru" [np]="Nepal" [nl]="The Netherlands" [nc]="New Caledonia" [nz]="New Zealand" [ni]="Nicaragua" [ne]="The Niger" [ng]="Nigeria" [nu]="Niue" [nf]="Norfolk Island" [mp]="The Northern Mariana Islands" [no]="Norway" [om]="Oman" [pk]="Pakistan" [pw]="Palau" [ps]="Palestine, State of" [pa]="Panama" [pg]="Papua New Guinea" [py]="Paraguay" [pe]="Peru" [ph]="The Philippines" [pn]="Pitcairn" [pl]="Poland" [pt]="Portugal" [pr]="Puerto Rico" [qa]="Qatar" [re]="R&eacute;union" [ro]="Romania" [ru]="The Russian Federation" [rw]="Rwanda" [bl]="Saint Barth&eacute;lemy" [sh]="Saint Helena, Ascension and Tristan da Cunha" [kn]="Saint Kitts and Nevis" [lc]="Saint Lucia" [mf]="Saint Martin (French part)" [pm]="Saint Pierre and Miquelon" [vc]="Saint Vincent and the Grenadines" [ws]="Samoa" [sm]="San Marino" [st]="Sao Tome and Principe" [sa]="Saudi Arabia" [sn]="Senegal" [rs]="Serbia" [sc]="Seychelles" [sl]="Sierra Leone" [sg]="Singapore" [sx]="Sint Maarten (Dutch part)" [sk]="Slovakia" [si]="Slovenia" [sb]="Solomon Islands" [so]="Somalia" [za]="South Africa" [gs]="South Georgia and the South Sandwich Islands" [ss]="South Sudan" [es]="Spain" [lk]="Sri Lanka" [sd]="The Sudan" [sr]="Suriname" [sj]="Svalbard and Jan Mayen" [se]="Sweden" [ch]="Switzerland" [sy]="Syrian Arab Republic" [tw]="Taiwan (Province of China)" [tj]="Tajikistan" [tz]="Tanzania, United Republic of" [th]="Thailand" [tl]="Timor-Leste" [tg]="Togo" [tk]="Tokelau" [to]="Tonga" [tt]="Trinidad and Tobago" [tn]="Tunisia" [tr]="Turkey" [tm]="Turkmenistan" [tc]="The Turks and Caicos Islands" [tv]="Tuvalu" [ug]="Uganda" [ua]="Ukraine" [ae]="The United Arab Emirates" [gb]="The United Kingdom of Great Britain and Northern Ireland" [um]="The United States Minor Outlying Islands" [us]="The United States of America" [uy]="Uruguay" [uz]="Uzbekistan" [vu]="Vanuatu" [ve]="Venezuela (Bolivarian Republic of)" [vn]="Viet Nam" [vg]="Virgin Islands (British)" [vi]="Virgin Islands (U.S.)" [wf]="Wallis and Futuna" [eh]="Western Sahara" [ye]="Yemen" [zm]="Zambia" [zw]="Zimbabwe")
+USERCOUNTRYCODE="$(getprop gsm.operator.iso-country || getprop gsm.sim.operator.iso-country)"
+printf "%s\\n" "Looking for ISO country code match;  Please wait a moment..."
+# if grep -i "$USERCOUNTRYCODE" <<< "${ISOCOUNTRYCODES[@]}" 1>/dev/null
+if [[ ! -z ${ISOCOUNTRYCODES[$USERCOUNTRYCODE]:-} ]]
+then
+printf '%s' "Found ISO country code match [$USERCOUNTRYCODE]=\"${ISOCOUNTRYCODES[$USERCOUNTRYCODE]}\";  "
+else
+printf '%s' "Could not find ISO country code match for ${USERCOUNTRYCODE:-UNKNOWNCOUNTRYCODE};  "
+fi
+printf "%s\\n" "Looking for ISO country code match;  DONE!  Continuing..."
+}
+
+_MRCOUNTRIESx86_() {
+MRCOUNTRIESx86="("Belarus" "France" "Germany" "Greece" "Russia" "Switzerland" "United States")"
+}
+
+_MRCOUNTRIESx86_64_() {
+MRCOUNTRIESx86_64="("Worldwide" "Australia" "Austria" "Bangladesh" "Belarus" "Belgium" "Bosnia and Herzegovina" "Brazil" "Bulgaria" "Canada" "Chile" "China" "Colombia" "Croatia" "Czechia" "Denmark" "Ecuador" "Finland" "France" "Georgia" "Germany" "Greece" "Hong Kong" "Hungary" "Iceland" "India" "Indonesia" "Iran" "Ireland" "Israel" "Italy" "Japan" "Kazakhstan" "Kenya" "Latvia" "Lithuania" "Luxembourg" "Moldova" "Netherlands" "New Caledonia" "New Zealand" "North Macedonia" "Norway" "Pakistan" "Paraguay" "Philippines" "Poland" "Portugal" "Romania" "Russia" "Serbia" "Singapore" "Slovakia" "Slovenia" "South Africa" "South Korea" "Spain" "Sweden" "Switzerland" "Taiwan" "Thailand" "Turkey" "Ukraine" "United Kingdom" "United States" "Vietnam")"
+}
+
 _BLOOM_() { # Bloom = `setupTermuxArch manual verbose`
-[[ -d "$HOME"/TermuxArchBloom ]] && _RMBLOOMQ_
-mkdir -p "$HOME"/TermuxArchBloom
-cp *sh "$HOME"/TermuxArchBloom
-cp setupTermuxArch "$HOME"/TermuxArchBloom
-cd "$HOME"/TermuxArchBloom
+[[ -d "$HOME/TermuxArchBloom" ]] && _RMBLOOMQ_
+mkdir -p "$HOME/TermuxArchBloom"
+cp {LICENSE,archlinuxconfig.bash,espritfunctions.bash,getimagefunctions.bash,knownconfigurations.bash,maintenanceroutines.bash,necessaryfunctions.bash,setupTermuxArch,printoutstatements.bash} "$HOME/TermuxArchBloom"
+cd "$HOME/TermuxArchBloom"
 printf "\\e[1;34m%s\\e[1;32m%s\\e[0m 📲\\n\\n" "TermuxArch Bloom option via " "setupTermuxArch bloom"
 ls -agl
 printf "\\n\\e[1;34m%s\\e[1;32m%s\\e[1;34m%s\\e[1;32m%s\\e[1;34m%s\\e[1;32m%s\\e[1;34m.\\e[0m\\n" "Use " "cd ~/TermuxArchBloom" " to continue.  Edit any of these files;  Then use " "bash ${0##*/} [options]" " to run the files in " "~/TermuxArchBloom"
-printf '\033]2;  TermuxArch Bloom option via `setupTermuxArch bloom` 📲 \007'
 }
 
 _EDITFILES_() {
@@ -25,7 +46,7 @@ sed -i '1i# # # # # # # # # # # # # # # # # # # # # # # # # # #\n# TermuxArch vi
 elif [[ "$USEREDIT" = "vim" ]]
 then
 sed -i -e 1,4d "$INSTALLDIR"/etc/pacman.d/mirrorlist
-sed -i '1i# # # # # # # # # # # # # # # # # # # # # # # # # # #\n# TermuxArch vim instructions:	CTR+r is redo.\n# Use the hjkl keys to navigate. <h down j up k l>\n# Numbers are multipliers.  The u is undelete/undo.\n# 17j then i opens edit mode for the Geo-IP CMIRROR.\n# Enter the # hash/num/pounds symbol to comment it out: \n# Server = http://CMIRROR.archlinuxarm.org/$arch/$repo.\n# Long tap KEYBOARD in the side pane to see ESC, CTR...\n# Tap ESC to return to command mode in vi.\n# CTRL+d and CTRL+b to find your local CMIRROR.\n# / for search, N and n for next match.\n# Tap x to delete # to uncomment your local CMIRROR.\n# Choose only one CMIRROR.  Use :x to save your work.\n#Comment out the Geo-IP CMIRROR	end G	top gg\n# # # # # # # # # # # # # # # # # # # # # # # # # # #' "$INSTALLDIR"/etc/pacman.d/mirrorlist
+sed -i '1i# # # # # # # # # # # # # # # # # # # # # # # # # # #\n# TermuxArch vim instructions:	CTR+r is redo.\n# Use the hjkl keys to navigate. <h down j up k l>\n# Numbers are multipliers.  The u is undelete/undo.\n# 17j then i opens edit mode for the Geo-IP CMIRROR.\n# Enter the # hash/num/pounds symbol to comment it out: \n# Server = http://CMIRROR.archlinuxarm.org/$arch/$repo.\n# Long tap KEYBOARD in the side pane to see ESC, CTR...\n# Tap ESC to return to command mode in vi.\n# CTRL+d and CTRL+b to find your local CMIRROR.\n# / for search, N and n for next match.\n# Tap x to delete # to uncomment your local CMIRROR.\n# Choose only one CMIRROR.  Use :x to save your work.\n# Please comment out only one Geo-IP CMIRROR	end G	top gg\n# # # # # # # # # # # # # # # # # # # # # # # # # # #' "$INSTALLDIR"/etc/pacman.d/mirrorlist
 sed -i '1i# # # # # # # # # # # # # # # # # # # # # # # # # # #\n# TermuxArch vim instructions:	CTR+r is redo.\n# Use the hjkl keys to navigate. <h down j up k l>\n# Numbers are multipliers.  The u is undelete/undo.\n# Tap i for insert, ESC to return to command mode in vi.\n# Long tap KEYBOARD in the side pane to see ESC, CTR...\n# Tap x to delete # to uncomment your favorite language(s).\n# Enter the # hash/num/pounds symbol to comment out locales.\n# CTRL+d and CTRL+b for PGUP & PGDN.\n# top gg	bottom G\n# / for search, N and n for next match.\n# Choose as many as you like.  Use :x to save your work.\n# # # # # # # # # # # # # # # # # # # # # # # # # # #\n#' "$INSTALLDIR"/etc/locale.gen
 elif [[ "$USEREDIT" = "nvim" ]]
 then
@@ -193,17 +214,54 @@ SPINDLAY="0.$(shuf -i 1-4 -n 1)"
 printf "\\e[?25l"
 while :
 do
-printf "  \b\b\b%s\b" "${SPINNERL:INCREMNT++%${#SPINNERL}:1}"
+printf "  \\b\\b\\b%s\\b" "${SPINNERL:INCREMNT++%${#SPINNERL}:1}"
 sleep $SPINDLAY
 done
-printf "\\n\\e[?25h"
-disown
 }
 
-_TAMATRIX_() {	# print TermuxArch source code as matrix
-# Terminal codes VT100 \\e[?25l information at https://wiki.bash-hackers.org/scripting/terminalcodes website.
+_TAMATRIXEND_() {	# print TermuxArch source code as matrix ending
+# Information about VT100 terminal codes such as \\e[?25l is available at this https://wiki.bash-hackers.org/scripting/terminalcodes website.
+printf "\\e[0;32m"
+. "$0" help
+tail -n 32 "$0"
+. "$0" h
+printf "\\e[0m"
+printf "\\e[?25h"
+}
+
+_TAMATRIX_() {	# partial implemintation; print TermuxArch source code as matrix
+_DOTAMSTRIX_() {
 printf "\\e[?25l\\e[1;32m%s" "$(tr -d '\n' < $0)"
 # split a string from file and print this split string
-IFS=';' read -ra TAMATARR <<< "$(tr -d '\n' < $0)" && for EMSTRING in "${TAMATARR[@]}" ; do printf "\\e[0;32m%s" "$EMSTRING" ; sleep 0.0"$(shuf -i 0-999 -n 1)" ; done ; tail -n 8 "$0" ; printf "\\e[0m" ; printf "\\e[?25h"; exit
+for EMSTRING in "${TAMATARR[@]}"
+do
+printf "\\e[0;32m%s" "$EMSTRING"
+sleep 0.0"$(shuf -i 0-999 -n 1)"
+done
+}
+IFS=';' read -ra TAMATARR <<< "$(tr -d '\n' < $0)"
+if [[ ! -z "${MATRIXLCR:-}" ]]
+then
+TAMATRIXENDLCR=0
+while :
+do
+_DOTAMSTRIX_
+done
+else
+_DOTAMSTRIX_
+fi
+_TAMATRIXEND_
+}
+
+_WAKELOCK_() {
+_PRINTWLA_
+am startservice --user 0 -a com.termux.service_wake_lock com.termux/com.termux.app.TermuxService > /dev/null || _PSGI1ESTRING_ "am startservice _WAKELOCK_ necessaryfunctions.bash ${0##/*} : Continuing..."
+_PRINTDONE_
+}
+
+_WAKEUNLOCK_() {
+_PRINTWLD_
+am startservice --user 0 -a com.termux.service_wake_unlock com.termux/com.termux.app.TermuxService > /dev/null || _PSGI1ESTRING_ "am startservice _WAKEUNLOCK_ necessaryfunctions.bash ${0##/*} : Continuing..."
+_PRINTDONE_
 }
 # espritfunctions.bash EOF

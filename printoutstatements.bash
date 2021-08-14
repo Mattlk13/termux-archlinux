@@ -1,62 +1,63 @@
 #!/usr/bin/env bash
-# Copyright 2017-2020 by SDRausty. All rights reserved.  🌎 🌍 🌏 🌐 🗺
-# Hosted sdrausty.github.io/TermuxArch courtesy https://pages.github.com
-# https://sdrausty.github.io/TermuxArch/README has info about this project.
-# https://sdrausty.github.io/TermuxArch/CONTRIBUTORS Thank you for your help.
-# printout statement subroutines for 'setupTermuxArch'
+## Copyright 2017-2021 by SDRausty. All rights reserved.  🌎 🌍 🌏 🌐 🗺
+## Hosted sdrausty.github.io/TermuxArch courtesy https://pages.github.com
+## https://sdrausty.github.io/TermuxArch/README has info about this project.
+## https://sdrausty.github.io/TermuxArch/CONTRIBUTORS Thank you for your help.
+## printout statement subroutines for 'setupTermuxArch'
 ################################################################################
 FLHDR0[0]="#!/usr/bin/env bash"
-FLHDR0[1]="# Copyright 2017-2020 by SDRausty. All rights reserved, see LICENSE 🌎 🌍 🌏"
+FLHDR0[1]="# Copyright 2017-2021 by SDRausty. All rights reserved, see LICENSE 🌎 🌍 🌏"
 FLHDR0[2]="# Hosting sdrausty.github.io/TermuxArch courtesy https://pages.github.com."
 FLHDR0[3]="# https://sdrausty.github.io/TermuxArch/README has info about this project."
 FLHDR0[4]="# https://sdrausty.github.io/TermuxArch/CONTRIBUTORS Thank you for your help."
 FLHDR1[0]="##############################################################################"
-FLHDR1[1]="IFS=$'\\n\\t'"
+FLHDR1[1]=""
 FLHDR1[2]="set -Eeuo pipefail"
 FLHDR1[3]="shopt -s nullglob globstar"
 FLHDR1[4]="unset LD_PRELOAD"
-FLHDR1[5]="VERSIONID=2.0.337"
-FLHDR1[6]=" "
+FLHDR1[5]="VERSIONID=2.0.469"
+FLHDR1[6]=""
 FLHDRP[0]="## BEGIN #####################################################################"
 FLHDRP[1]=""
 TRPERROR[0]="_TRPERR_() {  # run on script error"
 TRPERROR[1]="	local RV=\"\$?\""
-TRPERROR[2]="	printf \"\\\\e[?25h\\\\n\\\\e[1;48;5;138m %s\\\\e[0m\\\\n\\\\n\" \"TermuxArch WARNING:  Generated script signal \${RV:-UNKNOWN} near or at line number \${1:-UNKNOWN} by '\${2:-COMMAND}'!\""
+TRPERROR[2]="	printf \"\\\\e[?25h\\\\n\\\\e[1;48;5;138m %s\\\\e[0m\\\\n\\\\n\" \"TermuxArch WARNING:  Generated script signal \${RV:-UNKNOWN} near or at line number \${1:-UNKNOWN} by '\${2:-UNKNOWNCOMMAND}'!\""
 TRPERROR[3]="	exit 201"
 TRPERROR[4]="}"
-TRPERROR[5]=" "
-TRPEXIT[0]="_TRPET_() {  # run on exit"
-TRPEXIT[1]="	local RV=\"\$?\" "
-TRPEXIT[2]="  	printf \"\" "
-TRPEXIT[3]="	 "
+TRPERROR[5]=""
+TRPEXIT[0]=""
+TRPEXIT[1]="_TRPET_() {  # run on exit"
+TRPEXIT[2]="	local RV=\"\$?\""
+TRPEXIT[3]="	printf \"\""
 TRPEXIT[4]="	if [[ \"\$RV\" = 0 ]]"
 TRPEXIT[5]="	then"
-TRPEXIT[6]="		printf \"\\\\e[0;32m%s\\\\e[1;34m: \\\\e[1;32m%s\\\\e[0m\\\\n\\\\e[0m\" \"\${0##*/} \$@ \$VERSIONID\" \"DONE 🏁 \""
-TRPEXIT[7]="		printf \"\\\\e]2; %s: %s \007\" \"\${0##*/} \$@\" \"DONE 🏁 \""
-TRPEXIT[8]="	else "
-TRPEXIT[9]="		printf \"\\\\e[0;32m%s \\\\e[0m%s\\\\e[1;34m: \\\\e[1;32m%s\\\\e[0m\\\\n\\\\e[0m\" \"\${0##*/} \$@ \$VERSIONID\" \"[Exit Signal \$RV]\" \"DONE  🏁 \""
-TRPEXIT[10]="		printf \"\033]2; %s: %s %s \007\" \"\${0##*/} \$@\" \"[Exit Signal \$RV]\" \"DONE 🏁 \""
+TRPEXIT[6]="		printf \"\\\\e[0;32m%s\\\\e[1;34m: \\\\e[1;32m%s\\\\e[0m\\\\n\\\\e[0m\" \"\${0##*/} \$ARGS \$VERSIONID\" \"DONE 🏁 \""
+TRPEXIT[7]="		printf \"\\\\e]2; %s: %s \007\" \"\${0##*/} \$ARGS\" \"DONE 🏁 \""
+TRPEXIT[8]="	else"
+TRPEXIT[9]="		printf \"\\\\e[0;32m%s \\\\e[0m%s\\\\e[1;34m: \\\\e[1;32m%s\\\\e[0m\\\\n\\\\e[0m\" \"\${0##*/} \$ARGS \$VERSIONID\" \"[Exit Signal \$RV]\" \"DONE  🏁 \""
+TRPEXIT[10]="		printf \"\033]2; %s: %s %s \007\" \"\${0##*/} \$ARGS\" \"[Exit Signal \$RV]\" \"DONE 🏁 \""
 TRPEXIT[11]="	fi"
 TRPEXIT[12]="	printf \"\\e[?25h\\e[0m\""
 TRPEXIT[13]="	set +Eeuo pipefail"
 TRPEXIT[14]="	exit"
 TRPEXIT[15]="}"
-TRPEXIT[16]=" "
+TRPEXIT[16]=""
 TRPSIGNAL[0]="_TRPSIG_() {  # run on signal"
-TRPSIGNAL[1]="	printf \"\\\\e[?25h\\\\e[1;7;38;5;0mTermuxArch WARNING:  Signal \$? received!\\\\e[0m\\\\n\""
-TRPSIGNAL[2]=" 	exit 211"
+TRPSIGNAL[1]="	printf \"\\\\e[?25h\\\\e[1;7;38;5;0mTermuxArch WARNING:  Signal %s received!\\\\e[0m\\\\n\" \"\$?\""
+TRPSIGNAL[2]="	exit 211"
 TRPSIGNAL[3]="}"
-TRPSIGNAL[4]=" "
+TRPSIGNAL[4]=""
 TRPQUIT[0]="_TRPQ_() {  # run on quit"
-TRPQUIT[1]="	printf \"\\\\e[?25h\\\\e[1;7;38;5;0mTermuxArch WARNING:  Quit signal \$? received!\\\\e[0m\\\\n\""
-TRPQUIT[2]=" 	exit 221"
+TRPQUIT[1]="	printf \"\\\\e[?25h\\\\e[1;7;38;5;0mTermuxArch WARNING:  Quit signal %s received!\\\\e[0m\\\\n\" \"\$?\""
+TRPQUIT[2]="	exit 221"
 TRPQUIT[3]="}"
-TRPQUIT[4]=" "
+TRPQUIT[4]="ARGS=\"\$@\""
 TRAPS[0]="trap '_TRPERR_ \$LINENO \$BASH_COMMAND \$?' ERR"
 TRAPS[1]="trap _TRPET_ EXIT"
 TRAPS[2]="trap _TRPSIG_ HUP INT TERM"
 TRAPS[3]="trap _TRPQ_ QUIT"
-TRAPS[4]=" "
+TRAPS[4]=""
+# TRAPS[4]="printf \"\\\\e[1;32m==> \\\\e[0mRunning TermuxArch command \\\\e[1;32m%s\\\\e[0;32m%s\\\\e[1;37m...\\\\n\" \"\${0##*/} \$ARGS \" \"v\$VERSIONID\""
 
 _CFLHD_() { #	creates file header and inserts comments
 if [[ -z "${2:-}" ]]
@@ -116,7 +117,7 @@ fi
 
 _PRINTCONTACTING_() {
 printf "\033]2;  🕛 > 🕞 Contacting https://%s...\007" "$CMIRROR"
-printf "\\e[0;34m 🕛 > 🕞 \\e[1;34mContacting worldwide mirror \\e[0;32m%s\\e[1;34m: " "https://$CMIRROR"
+printf "\\e[0;34m 🕛 > 🕞 \\e[1;34mContacting worldwide mirror \\e[0;32m%s\\e[1;34m: " "http://$CMIRROR"
 }
 
 _PRINTCU_() {
@@ -125,12 +126,11 @@ printf "\\n\\e[0;34m 🕛 > 🕘 \\e[1;34mCleaning up installation files: "
 }
 
 _PRINTDETECTEDSYSTEM_() {
-printf "\\n\\e[1;34m%s" " 🕛 > 🕝 Detected $NASVER $CPUABI "
 if [[ "$(getprop ro.product.device)" == *_cheets ]]
 then
-printf "%s\\n\\n\\e[0m" "Chromebook operating system."
+printf "\\e[1;34m%s\\n\\n\\e[0m" " 🕛 > 🕝 Detected $NASVER Chromebook operating system;  Install architecture is set to $CPUABI."
 else
-printf "%s\\n\\n\\e[0m" "operating system."
+printf "\\e[1;34m%s\\n\\n\\e[0m" " 🕛 > 🕝 Detected $NASVER operating system;  Install architecture is set to $CPUABI."
 fi
 }
 
@@ -145,7 +145,7 @@ printf "\\e[0;34m 🕛 > 🕒 \\e[1;34mActivating termux-wake-lock: "
 
 _PRINTWLD_() {
 printf '\033]2; 🕛 > 🕙 Releasing termux-wake-lock: OK\007'
-printf "\\n\\e[0;34m 🕛 > 🕙 \\e[1;34mReleasing termux-wake-lock: "
+printf "\\e[0;34m 🕛 > 🕙 \\e[1;34mReleasing termux-wake-lock: "
 }
 
 _PRINTDOWNLOADINGX86_() {
@@ -160,7 +160,7 @@ printf "\\n\\e[0;34m 🕛 > 🕓 \\e[0;34mDownloading \\e[0;32m$IFILE \\e[0;34mf
 
 _PRINTDOWNLOADINGFTCH_() {
 printf "\033]2;%s\007" " 🕛 > 🕓 Downloading the checksum and Arch Linux system image files...  "
-printf "\\e[0;34m 🕛 > 🕓 \\e[1;34mDownloading the checksum file and \\e[1;34m%s \\e[1;34mfrom the geographically local mirror \\e[1;32m%s\\e[1;34m.  If contact with the local mirror is not successful, run \\e[1;32mbash \\e[0;32m%s\\e[1;34m again.  Should the worldwide mirror not provide another geographically nearby server after a couple of attempts, use \\e[1;32mbash \\e[0;32m%s manual \\e[1;34mafter locating a local mirror from the Internet; The command \\e[1;32mbash \\e[0;32m%s help \\e[1;34mhas information about additional options.  \\e[1;37mDownload of %s pending Internet connection...\\n\\n\\e[0;32m" "$IFILE" "$NLCMIRROR" "${0##*/}" "${0##*/}" "${0##*/}" "$IFILE"
+printf "\\e[0;34m 🕛 > 🕓 \\e[1;34mDownloading the checksum file and \\e[1;34m%s \\e[1;34mfrom the geographically local mirror \\e[1;32m%s\\e[1;34m.  If contact with the local mirror is not successful, run \\e[1;32mbash \\e[0;32m%s\\e[1;34m again.  Should the worldwide mirror not provide another geographically nearby server after a couple of attempts, use \\e[1;32mbash \\e[0;32m%s manual \\e[1;34mafter locating a local mirror from the Internet; The command \\e[1;32mbash \\e[0;32m%s help \\e[1;34mhas information about additional options.  \\e[1;37mDownload of %s pending Internet connection...\\n\\n\\e[0;32m" "$IFILE" "${NLCMIRROR:-MIRROR NOT FOUND}" "${0##*/}" "${0##*/}" "${0##*/}" "$IFILE"
 }
 
 _PRINT_DOWNLOADING_FTCHIT_() {
@@ -175,7 +175,7 @@ printf "\\e[0;34m 🕛 > 🕤 \\e[1;34mArch Linux in Termux PRoot is installed. 
 
 _PRINTMAX_() {
 printf "\033]2;%s\007" "Please run 'bash ${0##*/}' again."
-printf "\\n\\e[07;1m\\e[31;1m 🔆 WARNING: Maximum amount of attempts exceeded.\\e[34;1m\\e[30;1m\\n\\nPlease run 'bash %s' again.  See 'bash %s help' to resolve download errors.  If this keeps repeating, copy 'knownconfigurations.bash' to 'setupTermuxArchConfigs.bash' with preferred mirror.  After editing 'setupTermuxArchConfigs.bash', run 'bash %s' and 'setupTermuxArchConfigs.bash' loads automaticaly from the same directory.  Change mirror to desired geographic location to resolve md5sum errors.\\n\\nUser configurable variables are in 'setupTermuxArchConfigs.bash'.  To create this file from 'kownconfigurations.bash' in the working directory the command 'bash %s manual' can be used to create and edit 'setupTermuxArchConfigs.bash'.\\n\\nPlease run 'bash %s' again.\\n\\e[0;0m\\n" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}"
+printf "\\n\\e[07;1m\\e[31;1m 🔆 WARNING: Maximum amount of attempts exceeded.\\e[34;1m\\e[30;1m\\n\\nPlease run 'bash %s' again.  See 'bash %s help' to resolve download errors.  If this keeps repeating, copy 'knownconfigurations.bash' to 'setupTermuxArchConfigs.bash' with preferred mirror.  After editing 'setupTermuxArchConfigs.bash', run 'bash %s' and 'setupTermuxArchConfigs.bash' loads automaticaly from the same directory.  Change mirror to desired geographic location to resolve md5sum errors.\\n\\nUser configurable variables are in 'setupTermuxArchConfigs.bash'.  To create this file from 'knownconfigurations.bash' in the working directory the command 'bash %s manual' can be used to create and edit 'setupTermuxArchConfigs.bash'.\\n\\nPlease run 'bash %s' again.\\n\\e[0;0m\\n" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}"
 }
 
 _PRINTMD5CHECK_() {
@@ -184,13 +184,13 @@ printf "\\n\\e[0;34m 🕛 > 🕠 \\e[1;34mChecking download integrity with md5su
 
 _PRINTMD5ERROR_() {
 printf "\033]2;%s\007" "Run 'bash ${0##*/}' again..."
-printf "\\n\\e[07;1m\\e[31;1m 🔆 WARNING md5sum mismatch! The download failed and was removed!\\e[34;1m\\e[30;1m  Run 'bash ${0##*/}' again.  See 'bash ${0##*/} help' to resolve md5sum errors.  This kind of error can go away, like magic.  Waiting before executing again is recommended.  There are numerous reasons for checksum errors.  Proxies are one explaination.  Mirroring and mirrors are another explaination for md5sum errors.  Interrupted download is one more reason.  If this keeps repeating, copy 'knownconfigurations.bash' to 'setupTermuxArchConfigs.bash' with preferred mirror.  After editing 'setupTermuxArchConfigs.bash', run 'bash ${0##*/}' and 'setupTermuxArchConfigs.bash' loads automaticaly from the same directory.  Change mirror to desired geographic location to resolve md5sum errors.\\n\\nUser configurable variables are in 'setupTermuxArchConfigs.bash'.  Create this file from 'kownconfigurations.bash' in the working directory.  Use 'bash ${0##*/} manual' to create and edit 'setupTermuxArchConfigs.bash'.\\n\\n	Run 'bash ${0##*/}' again...\\n\\e[0;0m\n"
+printf "\\n\\e[07;1m\\e[31;1m 🔆 WARNING md5sum mismatch! The download failed and was removed!\\e[30;1m  Run 'bash %s' again.  The command 'bash %s help' has more information.  This kind of error can go away, like magic.  Waiting before executing again is recommended.  There are numerous reasons for checksum errors.  Proxies are one explaination.  Mirroring and mirrors are another explaination for md5sum errors.  An interrupted download is one more reason for an md5sum mismatch error.\\n	If this keeps repeating, you can copy 'knownconfigurations.bash' to 'setupTermuxArchConfigs.bash' with with command 'bash %s manual' to choose a preferred mirror.  After editing 'setupTermuxArchConfigs.bash', run 'bash %s' and 'setupTermuxArchConfigs.bash' loads automaticaly from the same directory.  Change mirror to desired geographic location to resolve md5sum errors.\\n	User configurable variables are in 'setupTermuxArchConfigs.bash'.  Create this file from 'knownconfigurations.bash' in the working directory.  Use 'bash %s manual' to create and edit 'setupTermuxArchConfigs.bash'.\\n\\n	Please run 'bash %s' again, or you can run 'bash %s manual' which creates file '%sConfigs.bash' for editing.\\n\\e[0;0m\n" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}" "${0##*/}"
 exit
 }
 
 _PRINTMD5SUCCESS_() {
 printf "\\e]2;%s\\007" " 🕛 > 🕡 Unpacking $IFILE..."
-printf "\\n\\n\\e[0;34m 🕛 > 🕕 \\e[1;34mSystem image file download integrity: \\e[1;32mOK\\n\\n\\e[0;34m 🕛 > 🕡 \\e[1;34mUnpacking %s into %s.  The option to create Arch Linux system users is available through \\e[1;32maddauser.  \\e[1;34mArch Linux user login from Termux with \\e[1;32m%s\\e[1;34mis now implemented.  See \\e[0;36mAbility for Scripts to Launch Commands for Arch Linux in Termux PRoot on Device\\e[1;34m https://github.com/sdrausty/TermuxArch/issues/54 for more information about these brand new options.  \\n\\nWhile waiting, you can use \\e[0;36mdf\\e[1;34m, \\e[0;36mdu -hs\\e[1;34m, \\e[0;36mhtop\\e[1;34m, \\e[0;36mps\\e[1;34m, \\e[0;36mtop\\e[1;34m and \\e[0;36mwatch\\e[1;34m in a new Termux session to watch the unpacking while this session completes.  Use \\e[0;36minfo query \\e[1;34mand \\e[0;36mman query \\e[1;34mto learn more about your Linux system in the palm of your hand.  See The Linux Documentation Project http://tldp.org to learn more about Linux and CLI (command line interface) commands.\\n\\nIn order to scroll this screen down to be able to read the output, long tap until the popup menu shows.  Let go, then scroll down without loosing touch with the screen and without touching the popup menu.  \\e[1;37mUnpacking \\e[37m\\e[1;37m will take a long time;  Please be patient   \\e[0m" "$IFILE" "$INSTALLDIR" "$STARTBIN "
+printf "\\n\\n\\e[0;34m 🕛 > 🕕 \\e[1;34mSystem image file download integrity check: \\e[1;32mDONE\\n\\n\\e[0;34m 🕛 > 🕡 \\e[1;34mUnpacking %s into %s.  The option to create Arch Linux system users is available through \\e[1;32maddauser.  \\e[1;34mArch Linux user login from Termux with \\e[1;32m%s \\e[1;34mis now implemented.  Please see \\e[0;36mAbility for Scripts to Launch Commands for Arch Linux in Termux PRoot on Device\\e[1;34m https://github.com/sdrausty/TermuxArch/issues/54 for information how to use this option.  \\n\\nWhile waiting, you can use \\e[0;36mdf\\e[1;34m, \\e[0;36mdu -hs\\e[1;34m, \\e[0;36mhtop\\e[1;34m, \\e[0;36mps\\e[1;34m, \\e[0;36mtop\\e[1;34m and \\e[0;36mwatch\\e[1;34m in a new Termux session to watch the unpacking while this session completes.  Use \\e[0;36mhelp man \\e[1;34mand \\e[0;36minfo man \\e[1;34mto learn more about your Linux system in the palm of your hand.  See The Linux Documentation Project http://tldp.org to learn more about Linux and CLI (command line interface) commands.\\n\\nIf simply scrolling the screen down by scrolling down does produce the desired effect, you can try this method.  Long tap until the popup menu shows.  Then scroll down without loosing touch with the screen and without touching the popup menu.  \\e[1;37mUnpacking \\e[1;32m%s\\e[1;37m will take a long time;  Please be patient   \\e[0m" "$IFILE" "$INSTALLDIR" "$STARTBIN" "$IFILE"
 }
 
 _PRINTMISMATCH_() {
@@ -229,6 +229,7 @@ fi
 }
 
 _PRINTPROOTERROR_() {
+printf "\\e[0;34m%s\\n\\n%s\\n\\n%s\\n\\n%s\\e[0m" "If error ' proot info: vpid 1: terminated with signal 11 ' is found, ensure that all the software is up to date.  After updating all software, including Android software, please reference these links in order to find a resolution if updating Termux app and Termux packages and Android device software was unsuccessful:" "  * https://github.com/termux/proot/issues?q=\"proot info: vpid 1: terminated with signal 11\"" "  * https://github.com/termux/termux-packages/issues?q=\"proot info: vpid 1: terminated with signal 11\""
 printf "\\e[0;34m%s\\n\\n%s\\n\\n%s\\n\\n%s\\e[0m" "If error ' env ... not found ' is found, ensure that all the software is up to date.  After updating, please reference these links in order to find a resolution if updating Termux app and Termux packages was unsuccessful:" "  * https://github.com/termux/proot/issues?q=\"env\"+\"not+found\"" "  * https://github.com/termux/termux-packages/issues?q=\"not+found\"+\"proot\""
 }
 
